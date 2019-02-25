@@ -48,4 +48,4 @@ This utility is therefore based on two components:
 
 ## Screen recording process
 
-Compile and upload your application to the META, then run the `screenrecord' script to listen to the serial port. Press and hold `BUTTON_MENU` for one second to start recording. The META will emit red flashes throughout the recording period. To stop recording, briefly press `BUTTON_MENU` again.
+Compile and upload your application to the META, then run the `screenrecord` script to listen to the serial port. Press and hold `BUTTON_MENU` for one second to start recording. The META will emit red flashes throughout the recording period. To stop recording, briefly press `BUTTON_MENU` again.
