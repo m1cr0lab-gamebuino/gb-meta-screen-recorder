@@ -36,7 +36,7 @@
  * ScreenRecorder::monitor(buffer, sliceIndex);
  * ----------------------------------------------------------------------------------
  * 
- * Then compile your sketch, then upload it to META. Run this script to listen to
+ * Then, compile your sketch and upload it to your META. Run this script to listen to
  * the serial port. For example:
  * 
  * ----------------------------------------------------------------------------------
@@ -70,7 +70,7 @@
 
 /**
  * Device (calling unit) corresponding to the USB port
- * used by META to communicate with your computer.
+ * used by your META to communicate with your computer.
  */
 define('SERIAL_DEVICE', '/dev/cu.usbmodem141401');
 
@@ -341,6 +341,7 @@ class ScreenRecorder
                 }
             }
         }
+        
         // once all the slices have been scanned, saves the recomposed image in a file in PNG format
         if ($this->recording) {
             @imagepng($gd, sprintf($this->directory.DIRECTORY_SEPARATOR.$this->basename."-%'0".$this->digits."d.png", $n))
