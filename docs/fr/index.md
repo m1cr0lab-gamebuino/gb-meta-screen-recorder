@@ -12,7 +12,7 @@ Vous développez un nouveau jeu ? Vous êtes fier de votre nouvelle création et
 
 La Gamebuino META dispose de deux outils intégrés qui vous permettent de faire des captures d'écran et des enregistrements vidéos. Ces outils sont directement accessibles via le bouton **Home** <i class="fa fa-home"></i>. Ce qui nous intéresse ici, c'est la **capture vidéo** :
 
-![Enregistrement vidéo natif](../../assets/figures/native-screen-recording-500x336.jpg){: width="250" height="168" class="shadow"}
+![Enregistrement vidéo natif](../assets/figures/native-screen-recording-500x336.jpg){: width="250" height="168" class="shadow"}
 
 L'outil fourni avec la META est très utile, certes... néanmoins il s'avère malgré tout assez **limité** et surtout **extrêmement contraignant** !
 

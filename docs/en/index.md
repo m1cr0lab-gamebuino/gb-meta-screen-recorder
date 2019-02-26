@@ -12,7 +12,7 @@ Are you developing a new game? Are you proud of your new creation and want to de
 
 The Gamebuino META has two built-in tools that allow you to take screenshots and screen recordings. These tools are directly accessible via the **Home** <i class="fa fa-home"></i> button. What interests us here is the **video capture**:
 
-![Native screen recording](../../assets/figures/native-screen-recording-500x336.jpg){: width="250" height="168" class="shadow"}
+![Native screen recording](../assets/figures/native-screen-recording-500x336.jpg){: width="250" height="168" class="shadow"}
 
 The tool provided with the META is very useful, certainly... nevertheless it is quite **limited** and above all **extremely binding**!
 
