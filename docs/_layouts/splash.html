@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>{{ site.data.app.title['en'] }} | Tuto Gamebuino</title>
+        {% for icon in site.data.favicons %}
+        <link rel="{{ icon.rel }}" {% if icon.sizes %}sizes="{{ icon.sizes }}"{% endif %} href="{{ site.base-url | append: 'assets/favicons/' | append: icon.src | relative_url }}" {% if icon.type %}type="{{ icon.type }}"{% endif %} />
+        {% endfor %}
+        <link rel="stylesheet" href="{{ site.base-url | append: 'assets/css/splash.css' | relative_url }}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="splash">
+                <div class="title">
+                    <h1>{{ site.data.app.title['en'] }}</h1>
+                    <h2>{{ site.data.app.subtitle['en'] }}</h2>
+                </div>
+                <div class="flags">
+                    <ul>
+                        <li><a href="{{ site.base-url | append: 'en/' | relative_url }}" class="en"><img src="{{ site.base-url | append: 'assets/css-images/blank.gif' | relative_url }}" class="flag flag-en" title="Read the tutorial in English" /></a></li>
+                        <li><a href="{{ site.base-url | append: 'fr/' | relative_url }}" class="fr"><img src="{{ site.base-url | append: 'assets/css-images/blank.gif' | relative_url }}" class="flag flag-fr" title="Lire le tutoriel en français" /></a></li>
+                    </ul>
+                </div>
+                <div class="title">
+                    <h1>{{ site.data.app.title['fr'] }}</h1>
+                    <h2>{{ site.data.app.subtitle['fr'] }}</h2>
+                </div>
+                <a class="logo" href="https://gamebuino.caffe1ne.com/">
+                    <div class="credit">
+                        <span class="reverse">&copy;</span> 2018-{{ "now" | date: "%Y" }} Stéphane Calderoni
+                    </div>
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

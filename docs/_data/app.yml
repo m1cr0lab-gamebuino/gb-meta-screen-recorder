@@ -1,0 +1,9 @@
+name: Screen Recorder
+icon: screen-recorder-128x128.png
+screen: screen-recorder-320x256.gif
+title:
+  fr: META Screen Recorder
+  en: META Screen Recorder
+subtitle:
+  fr: Résolution standard et haute résolution
+  en: Standard and high resolution

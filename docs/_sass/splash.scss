@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #74655b;
+    min-height: 100vh;
+    font-family: Roboto;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 1fr;
+    min-height: 100vh;
+}
+
+.splash {
+    margin: auto;
+
+    .title {
+        text-align: center;
+        
+        h1,h2 {
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+            text-shadow: 0 1px 2px rgba(#000, .5);
+        }
+        
+        h1 {
+            color: #eeccaa;
+            font-size: 20pt;
+        }
+        
+        h2 {
+            color: #d6cabe;
+            font-size: 14pt;
+        }
+    }
+    
+    .flags {
+        margin: 20px 0;
+        text-align: center;
+
+        .flag {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+            background: url('../css-images/flags-shiny-super-large-64x64.png') no-repeat;
+        }
+        
+        .flag.flag-fr {
+            background-position: -64px 0;
+        }
+        
+        .flag.flag-en {
+            background-position: 0 -64px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                display: inline-block;
+                margin-left: 20px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+
+        }
+    }
+
+    .logo {
+        text-decoration: none;
+    }
+
+    .credit {
+        margin-top: 40px;
+        padding-top: 48px;
+        background-image: url('../css-images/tuto-gamebuino.png');
+        background-repeat: no-repeat;
+        background-size: 135px;
+        background-position: top center;
+        color: #332c28;
+        font-size: 12px;
+        text-align: center;
+    }
+}
+
+.reverse {
+    display: inline-block;
+    transform: rotate(.5turn);
+}

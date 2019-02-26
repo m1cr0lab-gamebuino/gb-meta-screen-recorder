@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="{{ page.lang }}">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ site.data.app.title[page.lang] }} | Tuto Gamebuino</title>
+    {% assign posts=site.pages | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+    {% if posts.size > 1 %}
+        {% for post in posts %}
+            <link rel="alternate" hreflang="{{post.lang}}" href="{{ site.base-url | append: post.url | relative_url }}" />
+        {% endfor %}
+    {% endif %}
+    {% for icon in site.data.favicons %}
+        <link rel="{{ icon.rel }}" {% if icon.sizes %}sizes="{{ icon.sizes }}"{% endif %} href="{{ site.base-url | append: 'assets/favicons/' | append: icon.src | relative_url }}" {% if icon.type %}type="{{ icon.type }}"{% endif %} />
+    {% endfor %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ site.base-url | append: 'assets/css/styles.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ site.base-url | append: 'assets/css/syntax.css' | relative_url }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="{{ site.base-url | append: 'assets/js/utils.js' | relative_url }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  </head>
+  <body>
+    <header>
+        <div class="grid">
+            <div class="app cell">
+                <div class="icon">
+                    <img src="{{ site.base-url | append: 'assets/app-icons/' | append: site.data.app.icon | relative_url }}" alt="icon" />
+                </div>
+                <div class="details">
+                    <p class="name">{{ site.data.app.name }}</p>
+                    <p><a class="github" href="{{ site.github.repository_url }}"><i class="fab fa-github"></i> {{ site.data.translations['github'][page.lang] }}</a></p>
+                </div>
+            </div>
+            <a class="logo cell" href="https://gamebuino.caffe1ne.com/"><span class="reverse">&copy;</span> 2018-{{ "now" | date: "%Y" }} Stéphane Calderoni</a>
+        </div>
+        {% assign posts=site.pages | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+        {% if posts.size > 1 %}
+            <div class="flags">
+                <ul>
+                    {% for post in posts %}
+                        {% if post.lang == page.lang %}
+                            <li><img src="{{ site.base-url | append: 'assets/css-images/blank.gif' | relative_url }}" class="flag flag-{{ post.lang }} {{ post.lang }}" /></a></li>
+                        {% else %}
+                            <li><a href="{{ site.base-url | append: post.url | relative_url }}"><img src="{{ site.base-url | append: 'assets/css-images/blank.gif' | relative_url }}" class="flag flag-{{ post.lang }} {{ post.lang }}" /></a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </header>
+    <div class="wrapper">
+        <nav id="toc">
+            <ul></ul>
+        </nav>
+        <nav id="pages">
+            {% assign posts = site.pages | where:"lang", page.lang | sort:"rank" %}
+            {% if posts.size > 1 %}
+                <ul>
+                    {% for post in posts %}
+                        <li class="{% if page.url == post.url %}active{% endif %}"><a href="{{ site.base-url | append: post.url | relative_url }}" class="{{ post.lang }}">{{ post.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </nav>
+        <section id="page">
+            <div class="heading">
+                <div class="description">
+                    <h1>{{ site.data.app.title[page.lang] }}</h1>
+                    <h2>{{ site.data.app.subtitle[page.lang] }}</h2>
+                    <p class="update_time">
+                        {{ site.data.translations['update_date'][page.lang] }}
+                        {% include date.html date="now" %}
+                        {{ site.data.translations['update_time'][page.lang] }}
+                        {{ "now" | date: "%H:%M" }} GMT+4
+                    </p>
+                </div>
+                <div class="screen">
+                    <img src="{{ site.base-url | append: 'assets/app-screens/' | append: site.data.app.screen | relative_url }}" alt="screen" />
+                </div>
+            </div>
+            <div id="content">
+                {{ content }}
+            </div>
+        </section>
+        <div id="credit"><span class="reverse">&copy;</span> {{ "now" | date: "%Y" }} Stéphane Calderoni</div>
+    </div>
+  </body>
+</html>
