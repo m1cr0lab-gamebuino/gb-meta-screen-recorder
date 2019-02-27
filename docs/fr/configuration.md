@@ -12,7 +12,7 @@ lang-ref: setup
 Pour enregistrer des captures d'écrans successifs d'une application qui s'exécute sur votre META, vous allez avoir besoin d'un composant spécifique qui va se charger d'effectuer cette tâche : le `ScreenRecorder`. Pour intégrer ce composant à votre projet, vous allez devoir télécharger deux fichiers qui déclarent et définissent respectivement la classe C++ `ScreenRecorder` :
 
 - [ScreenRecorder.h](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.h) qui est le fichier d'en-tête déclaratif de la classe,
-[ScreenRecorder.cpp](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.cpp) qui est le fichier de définition de la classe.
+- [ScreenRecorder.cpp](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.cpp) qui est le fichier de définition de la classe.
 
 > Pour les télécharger, faites un clic droit sur chacun des liens, et sélectionnez ***Enregistrer le lien sous...*** pour le sauvegarder dans le répertoire de votre projet.
 
