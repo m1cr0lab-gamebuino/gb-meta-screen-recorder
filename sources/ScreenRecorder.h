@@ -22,11 +22,9 @@
  * To record in standard resolution:
  * ------------------------------------------------------------------
  * 
- * - insert the following line in your `setup()` function, where:
- *   + SCREEN_WIDTH  corresponds to the width of the screen  (80)
- *   + SCREEN_HEIGHT corresponds to the height of the screen (64)
+ * - insert the following line in your `setup()` function:
  * ------------------------------------------------------------------
- * ScreenRecorder::init(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_HEIGHT);
+ * ScreenRecorder::init();
  * ------------------------------------------------------------------
  * 
  * - insert the following line in your `loop()` function:
@@ -39,12 +37,11 @@
  * ------------------------------------------------------------------
  * 
  * - insert the following line in your `setup()` function, where:
- *   + SCREEN_WIDTH  corresponds to the width of the screen  (160)
- *   + SCREEN_HEIGHT corresponds to the height of the screen (128)
- *   + SLICE_HEIGHT  is the height of the slices buffer that you send
- *                   to the DMA controller
+ *   + SLICE_HEIGHT is the height of the buffer slices that you send
+ *                  to the DMA controller.
+ *                  Only 2, 4, 8 or 16 are valid values
  * ------------------------------------------------------------------
- * ScreenRecorder::init(SCREEN_WIDTH, SCREEN_HEIGHT, SLICE_HEIGHT);
+ * ScreenRecorder::init(SLICE_HEIGHT);
  * ------------------------------------------------------------------
  * 
  * - insert the following line when your slice buffer has been populated, where:
@@ -74,6 +71,7 @@ class ScreenRecorder
         static uint8_t sliceHeight;
 
         static uint32_t timer;
+        static bool     initialized;
         static bool     recording;
         static bool     ready;
         static bool     lightsOn;
@@ -90,7 +88,7 @@ class ScreenRecorder
 
     public:
 
-        static void init(uint8_t screenWidth, uint8_t screenHeight, uint8_t sliceHeight);
+        static void init(uint8_t sliceHeight = 64);
         static void monitor(uint16_t* buffer, uint16_t sliceIndex = 0);
 
         static bool isRecording();

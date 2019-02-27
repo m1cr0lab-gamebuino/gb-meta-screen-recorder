@@ -17,20 +17,30 @@ uint8_t  ScreenRecorder::screenHeight = 0;
 uint8_t  ScreenRecorder::sliceHeight  = 0;
 
 uint32_t ScreenRecorder::timer        = 0;
+bool     ScreenRecorder::initialized  = false;
 bool     ScreenRecorder::recording    = false;
 bool     ScreenRecorder::ready        = false;
 bool     ScreenRecorder::lightsOn     = false;
 
-void ScreenRecorder::init(uint8_t screenWidth, uint8_t screenHeight, uint8_t sliceHeight) {
-    ScreenRecorder::screenWidth  = screenWidth;
-    ScreenRecorder::screenHeight = screenHeight;
+void ScreenRecorder::init(uint8_t sliceHeight) {
+    initialized = (sliceHeight ==  2) ||
+                  (sliceHeight ==  4) ||
+                  (sliceHeight ==  8) ||
+                  (sliceHeight == 16) ||
+                  (sliceHeight == 64);
+
+    bool hd = sliceHeight != 64;
+    ScreenRecorder::screenWidth  = hd ? 160 : 80;
+    ScreenRecorder::screenHeight = hd ? 128 : 64;
     ScreenRecorder::sliceHeight  = sliceHeight;
 }
 
 void ScreenRecorder::tick() {
-    checkButtons();
-    if (recording) {
-        handleLEDs();
+    if (initialized) {
+        checkButtons();
+        if (recording) {
+            handleLEDs();
+        }
     }
 }
 
