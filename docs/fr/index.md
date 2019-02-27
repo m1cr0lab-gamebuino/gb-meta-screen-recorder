@@ -33,7 +33,7 @@ Ceci m'a naturellement amené à développer un petit utilitaire qui réponde à
 |------------------:|:----------------------------:|:----------------------------------:|:------:|:------:|
 | **Niveau requis** | <i class="fas fa-check"></i> | <i class="fas fa-check faded"></i> |        |        |
 
-Pour pouvoir utiliser cet outil dans les meilleures conditions, vous devez :
+Pour pouvoir installer et utiliser cet outil dans les meilleures conditions, vous devez :
 
 - connaître les rudiments de l'interpréteur de commandes de votre OS,
 - maîtriser les notions de base du langage C++,
