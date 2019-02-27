@@ -2,7 +2,7 @@
 rank: 4
 layout: default
 title: Usage
-permalink: /fr/usage/
+permalink: /en/usage/
 lang: en
 lang-ref: usage
 ---

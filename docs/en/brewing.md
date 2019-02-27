@@ -2,7 +2,7 @@
 rank: 2
 layout: default
 title: Brewing
-permalink: /fr/brewing/
+permalink: /en/brewing/
 lang: en
 lang-ref: brewing
 ---
@@ -11,8 +11,8 @@ lang-ref: brewing
 
 We need:
 
-- [PHP-CLI](http://php.net/manual/fr/features.commandline.php) 7.x to execute the recording script that will receive the META screenshots,
-- the PHP [GD](http://php.net/manual/fr/book.image.php) module for image processing, which will allow us to convert binary raw data into PNG files,
+- [PHP-CLI](http://php.net/manual/en/features.commandline.php) 7.x to execute the recording script that will receive the META screenshots,
+- the PHP [GD](http://php.net/manual/en/book.image.php) module for image processing, which will allow us to convert the received binary raw data into PNG files,
 - the [ImageMagick](https://www.imagemagick.org/) software suite to convert these PNG files to animated GIF.
 
 Depending on your operating system, the installation procedure is different. Therefore, please refer directly to the sections that apply to you.
@@ -106,7 +106,7 @@ Then unarchive the ZIP content in `C:\PHP7`, and :
 - duplicate the file `C:\PHP7\php.ini-development`
 - by renaming it by `C:\PHP7\php.ini`
 
-Open the new file `C:\PHP7\php.ini` in a text editor like [Notepad++](https://notepad-plus-plus.org/fr/) and go to the ***Directory in which the loadable extensions (modules) reside*** section, then uncomment the `extension_dir = "ext"` line:
+Open the new file `C:\PHP7\php.ini` in a text editor like [Notepad++](https://notepad-plus-plus.org/en/) and go to the ***Directory in which the loadable extensions (modules) reside*** section, then uncomment the `extension_dir = "ext"` line:
 
 ```
 ; Directory in which the loadable extensions (modules) reside.

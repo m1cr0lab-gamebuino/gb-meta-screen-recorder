@@ -12,7 +12,7 @@ lang-ref: brewing
 Nous avons besoin de :
 
 - [PHP-CLI](http://php.net/manual/fr/features.commandline.php) 7.x pour exécuter le script d'enregistrement qui va réceptionner les captures d'écrans de la META,
-- du module PHP [GD](http://php.net/manual/fr/book.image.php) pour le traitement des images, qui va nous permettre de convertir les données brutes binaires en fichiers PNG,
+- du module PHP [GD](http://php.net/manual/fr/book.image.php) pour le traitement des images, qui va nous permettre de convertir les données brutes binaires réceptionnées en fichiers PNG,
 - de la suite logicielle [ImageMagick](https://www.imagemagick.org/) pour convertir ces fichiers PNG en GIF animée.
 
 En fonction de votre système d'exploitation, la procédure d'installation est différente. Par conséquent, reportez-vous directement aux sections qui vous concernent.
