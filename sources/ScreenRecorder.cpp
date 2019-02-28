@@ -9,7 +9,7 @@
 #include <Gamebuino-Meta.h>
 #include "ScreenRecorder.h"
 
-const uint16_t ScreenRecorder::SERIAL_DATA_RATE = 115200;
+const uint16_t ScreenRecorder::SERIAL_DATA_RATE = 9600;
 const Color    ScreenRecorder::FLASHING_COLOR   = gb.createColor(255, 0, 0);
 
 uint8_t  ScreenRecorder::screenWidth  = 0;

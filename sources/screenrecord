@@ -52,9 +52,16 @@
  * Once the script is running, press and hold (at least 1 second) META's BUTTON_MENU
  * to start recording. The META will emit red flashes throughout the recording period.
  * Each frame is rebuilt and saved as a PNG file in the folder specified by the `-d`
- * flag of the `screenrecord` command (the `frames` folder here).
+ * flag of the `screenrecord` command (the `frames` folder here). To stop recording,
+ * briefly press BUTTON_MENU again and the script will stop itself.
+ *
+ * You can also start and stop recording at specific times directly in your C++ code.
+ * To do this, use the following instructions:
+ * ----------------------------------------------------------------------------------
+ * ScreenRecorder::startRecording();
+ * ScreenRecorder::stopRecording();
+ * ----------------------------------------------------------------------------------
  * 
- * To stop recording, briefly press BUTTON_MENU again and the script will stop itself.
  * To generate an animated GIF, you must have installed the `imagemagick` software
  * beforehand and use its `convert` program. For example, to generate an animation
  * of 160x128 pixels at 25 fps, run the following command:
@@ -72,7 +79,7 @@
  * Device (calling unit) corresponding to the USB port
  * used by your META to communicate with your computer.
  */
-define('SERIAL_DEVICE', '/dev/cu.usbmodem141401');
+define('SERIAL_DEVICE_ID', '/dev/cu.usbmodem141401');
 
 /**
  * Root name of the PNG files that will be generated.
@@ -102,6 +109,8 @@ class ScreenRecorder
 {
     /** @var resource Resource representing the serial port reading pointer. */
     private $serial;
+    /** @var string Identifier of to the serial port. */
+    private $serial_id;
     /** @var string Path of the directory in which the PNG files will be saved. */
     private $directory;
     /** @var string Base name of the PNG files that will be saved. */
@@ -131,6 +140,7 @@ class ScreenRecorder
      */
     public function __construct(array &$args) {
         // sets the default properties
+        $this->serial_id    = SERIAL_DEVICE_ID;
         $this->directory    = '.';
         $this->basename     = SAVEFILE_BASENAME;
         $this->digits       = NUM_DIGITS_SAVEFILE;
@@ -171,7 +181,7 @@ class ScreenRecorder
                     if (!file_exists($serial)) {
                         die(sprintf("[Error] no such device: %s\n", $this->highlight($serial)));
                     }
-                    $this->serial = $serial;
+                    $this->serial_id = $serial;
                     break;
                 case '-d': // recording directory
                     $path = $args[$i+1];
@@ -213,7 +223,7 @@ class ScreenRecorder
         $buffer .= "\tusing communication through a serial port\n\n";
         $buffer .= "OPTIONS\n\n";
         $buffer .= sprintf("\t%s  displays the synopsis\n", $this->highlight('-h'));
-        $buffer .= sprintf("\t%s  sets the serial port (default: %s)\n", $this->highlight('-p'), SERIAL_DEVICE);
+        $buffer .= sprintf("\t%s  sets the serial port (default: %s)\n", $this->highlight('-p'), SERIAL_DEVICE_ID);
         $buffer .= sprintf("\t%s  sets the output directory (default: current directory)\n", $this->highlight('-d'));
         $buffer .= sprintf("\t%s  sets the image files basename (default: %s)\n", $this->highlight('-b'), SAVEFILE_BASENAME);
         $buffer .= sprintf("\t%s  sets the number of digits to number the image files (default: %s)\n\n", $this->highlight('-n'), NUM_DIGITS_SAVEFILE);
@@ -243,14 +253,14 @@ class ScreenRecorder
      */
     private function startListening() {
         // reading binary data from the serial port
-        if ($this->serial = @fopen(SERIAL_DEVICE, "rb")) {
+        if ($this->serial = @fopen($this->serial_id, "rb")) {
 
             // initializes the index of the frame to be recorded
             $n = 1;
 
             // starts listening and waits for the beginning of the recording
             $this->listening = true;
-            printf("\nStart listening to the serial port %s\n\nWaiting for data... ", $this->highlight(SERIAL_DEVICE));
+            printf("\nStart listening to the serial port %s\n\nWaiting for data... ", $this->highlight($this->serial_id));
             
             // waits for the start recording tag
             $this->waitingForStartingTag();
@@ -275,7 +285,7 @@ class ScreenRecorder
             echo $buffer;
 
         } else {
-            die(sprintf("[Error] cannot open the serial port: %s\n", $this->highlight(SERIAL_DEVICE)));
+            die(sprintf("[Error] cannot open the serial port: %s\n", $this->highlight($this->serial_id)));
         }
     }
 

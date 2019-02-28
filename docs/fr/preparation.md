@@ -157,7 +157,7 @@ $ php -v  <-- pour tester la version de l'interpréteur PHP
 $ php -m  <-- pour afficher la liste des extensions activées
 ```
 
-Dans la liste des extensions activées, vous devez retrouver `gd2`.
+Dans la liste des extensions activées, vous devez retrouver `gd`.
 
 # Installation d'ImageMagick
 
