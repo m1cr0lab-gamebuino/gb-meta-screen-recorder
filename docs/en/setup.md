@@ -222,7 +222,7 @@ In addition, you can see that the `ScreenRecorder` is only invoked after the cur
 > I advise you to use the value `8` which only requires `2` x `2.5` = `5` kb in RAM.
 
 
-# Configure automatic recording
+# How to configure automatic recording
 
 In the next chapter we will see how to manually trigger and stop the recording. But you can also do it automatically by inserting the corresponding instructions directly into your code. This can be very useful when you want to start or stop recording at specific times, or when certain events occur. To do this, simply insert each of the following two instructions wherever you wish:
 
