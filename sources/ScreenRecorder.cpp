@@ -79,11 +79,13 @@ void ScreenRecorder::turnOffLEDs() {
 }
 
 void ScreenRecorder::startRecording() {
-    recording = true;
-    SerialUSB.print("start");
-    SerialUSB.write(screenWidth);
-    SerialUSB.write(screenHeight);
-    SerialUSB.write(sliceHeight);
+    if (!recording) {
+        recording = true;
+        SerialUSB.print("start");
+        SerialUSB.write(screenWidth);
+        SerialUSB.write(screenHeight);
+        SerialUSB.write(sliceHeight);
+    }
 }
 
 void ScreenRecorder::stopRecording() {

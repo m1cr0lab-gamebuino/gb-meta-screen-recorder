@@ -23,9 +23,9 @@ We will now examine how to integrate and invoke the services offered by this cla
 
 This is the simplest case.
 
-Edit the main sketch of your application (here, I will name it `Test.ino`) and insert the instructions indicated in the code below:
+Edit the main sketch of your application (here, I will name it `Sketch.ino`) and insert the instructions indicated in the code below:
 
-<div class="filename">Test.ino</div>
+<div class="filename">Sketch.ino</div>
 ```cpp
 #include <Gamebuino-Meta.h>
 #include "ScreenRecorder.h" /* <-- insert this line */
@@ -61,7 +61,7 @@ To return to our `ScreenRecorder`, and to illustrate how it should be configured
 
 Here is his code, which I slightly modified. I have not yet voluntarily inserted what is necessary for the configuration of the ScreenRecorder:
 
-<div class="filename">Test.ino</div>
+<div class="filename">Sketch.ino</div>
 ```cpp
 /*
  * This code is an adaptation of Andy O'Neill's,
@@ -172,7 +172,7 @@ If you run this code on the META, you will get the following animation:
 
 We still have to insert the code lines necessary to configure our `ScreenRecorder`:
 
-<div class="filename">Test.ino</div>
+<div class="filename">Sketch.ino</div>
 ```cpp
 // at the beginning of the code:
 #include <Gamebuino-Meta.h>
@@ -220,5 +220,16 @@ In addition, you can see that the `ScreenRecorder` is only invoked after the cur
 > When initializing the `ScreenRecorder`, note that the height of the slices must necessarily be a non-zero power of `2`, whose maximum value is `16`... so only the values `2`, `4`, `8` and `16` will be taken into account. If you use a value greater than `16`, the recording will simply be disabled. And if you use a value lower than `16` which is not a power of `2`, you will get a rather strange recording...  <i class="far fa-smile"></i>
 >
 > I advise you to use the value `8` which only requires `2` x `2.5` = `5` kb in RAM.
+
+
+# Configure automatic recording
+
+In the next chapter we will see how to manually trigger and stop the recording. But you can also do it automatically by inserting the corresponding instructions directly into your code. This can be very useful when you want to start or stop recording at specific times, or when certain events occur. To do this, simply insert each of the following two instructions wherever you wish:
+
+
+```cpp
+ScreenRecorder::startRecording();
+ScreenRecorder::stopRecording();
+```
 
 There you go! Now, you know how to configure your sketch to be able to continuously record what is displayed on the META screen. So let's see how to actually make this recording to get an animated GIF....

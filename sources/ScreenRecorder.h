@@ -57,6 +57,13 @@
  * Press and hold `BUTTON_MENU` for one second to start recording.
  * The META will emit red flashes throughout the recording period.
  * To stop recording, briefly press `BUTTON_MENU` again.
+ * 
+ * You can also start and stop recording at specific times,
+ * directly in your code. To do this, use the following instructions:
+ * ------------------------------------------------------------------
+ * ScreenRecorder::startRecording();
+ * ScreenRecorder::stopRecording();
+ * ------------------------------------------------------------------
  */
 
 class ScreenRecorder
@@ -82,14 +89,14 @@ class ScreenRecorder
         static void turnOnLEDs();
         static void turnOffLEDs();
 
-        static void startRecording();
-        static void stopRecording();
         static void capture(uint16_t* buffer);
 
     public:
 
         static void init(uint8_t sliceHeight = 64);
         static void monitor(uint16_t* buffer, uint16_t sliceIndex = 0);
+        static void startRecording();
+        static void stopRecording();
 
         static bool isRecording();
 };

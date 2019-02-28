@@ -23,9 +23,9 @@ Nous allons maintenant examiner comment intégrer et invoquer les services propo
 
 Il s'agit du cas le plus simple.
 
-Éditez le croquis principal de votre application (ici, je le nommerai `Test.ino`) et insérez les instructions signalées dans le code ci-dessous :
+Éditez le croquis principal de votre application (ici, je le nommerai `Sketch.ino`) et insérez les instructions signalées dans le code ci-dessous :
 
-<div class="filename">Test.ino</div>
+<div class="filename">Sketch.ino</div>
 ```cpp
 #include <Gamebuino-Meta.h>
 #include "ScreenRecorder.h" /* <-- insérez cette ligne */
@@ -62,7 +62,7 @@ Pour revenir à notre `ScreenRecorder`, et pour illustrer la manière dont on do
 
 Voici son code, que j'ai légèrement modifié. Je n'y ai volontairement pas encore inséré ce qui est nécessaire pour la configuration du `ScreenRecorder` :
 
-<div class="filename">Test.ino</div>
+<div class="filename">Sketch.ino</div>
 ```cpp
 /*
  * Ce code est une adaptation de celui d'Andy O'Neill,
@@ -180,7 +180,7 @@ Si vous lancez ce code sur la META, vous obtiendrez l'animation suivante :
 
 Il nous reste donc à insérer les lignes de codes nécessaires à la configuration de notre enregistreur `ScreenRecorder` :
 
-<div class="filename">Test.ino</div>
+<div class="filename">Sketch.ino</div>
 ```cpp
 // en début de code :
 #include <Gamebuino-Meta.h>
@@ -228,5 +228,16 @@ Par ailleurs, vous voyez que c'est uniquement après avoir terminé de remplir l
 > Lors de l'initialisation du `ScreenRecorder`, notez que la hauteur des tranches doit nécessairement être une puissance de `2` non nulle, dont la valeur maximale est `16`... donc seules les valeurs `2`, `4`, `8` et `16` seront prises en compte. Si vous utilisez une valeur supérieure à `16`, l'enregistrement sera simplement désactivé. Et si vous utilisez une valeur inférieure à `16` qui n'est pas une puissance de `2`, vous obtiendrez un enregistrement... plutôt bizarre <i class="far fa-smile"></i>
 >
 > Je vous conseille d'utiliser la valeur `8` qui ne nécessite que `2` x `2,5` = `5` ko en RAM.
+
+
+# Configurer l'enregistrement automatique
+
+Nous verrons dans le chapitre suivant comment déclencher manuellement l'enregistrement et l'arrêter. Mais sachez que vous pouvez également le faire de manière automatique en insérant les instructions correspondantes directement dans votre code. Ceci peut s'avérer très pratique lorsque vous souhaitez déclencher ou stopper l'enregistrement à des moments précis, ou encore lorsque certains événements se produisent. Pour cela, il vous suffit d'insérer chacune des deux instructions suivantes où bon vous semble :
+
+```cpp
+ScreenRecorder::startRecording(); // pour lancer l'enregistrement
+ScreenRecorder::stopRecording();  // pour stopper l'enregistrement
+```
+
 
 Et voilà ! Vous savez désormais comment configurer votre croquis pour être en mesure d'enregistrer, de manière continue, ce qui est affiché sur l'écran de la META. Voyons maintenant comment effectuer véritablement cet enregistrement pour obtenir une GIF animée...

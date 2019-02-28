@@ -16,15 +16,15 @@ La Gamebuino META dispose de deux outils intégrés qui vous permettent de faire
 
 L'outil fourni avec la META est très utile, certes... néanmoins il s'avère malgré tout assez **limité** et surtout **extrêmement contraignant** !
 
-- Limité car il **ne permet pas** d'enregistrer une capture vidéo d'une application développée pour la **haute résolution** (`160x128` pixels). Seule la résolution standard (`80x64` pixels) est prise en charge.
+- Limité car il **ne permet pas** d'enregistrer une capture vidéo d'une application développée pour la **haute résolution** (`160x128` pixels). Seule la résolution standard (`80x64` pixels) est prise en charge. Vous ne pouvez pas non plus déclencher ou arrêter l'enregistrement directement dans votre code, à un moment précis, où lorsque certains événements se produisent : vous devez nécessairement interrompre le déroulement de votre application et passer par le menu accessible avec le bouton Home.
 
 - Contraignant car l'outil de capture enregistre un fichier au format **GMV**... qui est très léger, mais impropre à la lecture dans un navigateur Web. Vous ne pourrez donc rien en faire en l'état. [Soru](https://gamebuino.com/@sorunome) a développé [un petit utilitaire](https://gamebuino.com/creations/gmv-to-gif-converter) qui vous permet de convertir ce fichier GMV en une GIF animée. Mais vous devrez préalablement récupérer le fichier GMV sur la carte microSD avant de pouvoir le convertir... Pour ceux qui se sont déjà prêtés à l'exercice, vous admettrez que ces manipulations peuvent vous rendre fou quand vous vous y reprenez 10 fois pour obtenir un enregistrement qui vous convient !
 
 Ceci m'a naturellement amené à développer un petit utilitaire qui réponde à mes besoins :
 
-- plus **simple** et plus **rapide** à utiliser,
-- plus **souple** dans la mesure où il me donne la possiblité de retravailler les captures effectuées, ou même de supprimer les écrans superflus,
-- et enfin, plus **évolué** pour me permettre enfin d'accéder à la haute résolution.
+- Plus **simple** et plus **rapide** à utiliser.
+- Plus **souple** dans la mesure où je peux désormais déclencher ou arrêter l'enregistrement de multiples façons : soit en appuyant sur un bouton, soit directement dans mon code à un moment précis, ou lorsque certains événements se produisent. Par ailleurs, lorsque l'enregistrement a été effectué, je peux encore retravailler les captures d'écran, ou même supprimer les écrans superflus, avant de générer ma GIF animée.
+- Plus **évolué** puisque je peux désormais accéder à la haute résolution.
 
 
 # Quels sont les prérequis de mise en œuvre ?
