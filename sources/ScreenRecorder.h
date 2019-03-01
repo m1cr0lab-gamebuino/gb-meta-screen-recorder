@@ -44,7 +44,8 @@
  * ScreenRecorder::init(SLICE_HEIGHT);
  * ------------------------------------------------------------------
  * 
- * - insert the following line when your slice buffer has been populated, where:
+ * - insert the following line when your slice buffer has been
+ *   populated, where:
  *   + `buffer` is the buffer corresponding to the current slice
  *              you have just filled in
  *   + `sliceIndex` is the rank of the current slice

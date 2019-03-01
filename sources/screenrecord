@@ -443,7 +443,7 @@ class ScreenRecorder
 }
 
 /**
- * Starts the listening on serial port.
+ * Runs the command (if GD lib is available).
  */
 if (function_exists('imagecreatetruecolor')) {
     new ScreenRecorder($argv);

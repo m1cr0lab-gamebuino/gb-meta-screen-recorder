@@ -9,9 +9,9 @@ lang-ref: usage
 
 # Téléchargement du script PHP
 
-Maintenant que votre croquis est configuré, vous pouvez passer à l'enregistrement de l'écran de votre console. Pour cela, vous allez avoir besoin d'un scipt PHP (`screenrecord`) qui va écouter le port série par lequel la META va communiquer ses données à votre ordinateur. `screenrecord` va donc réceptionner ces données brutes : il s'agit d'un flot d'entiers sur 16 bits codant les couleurs de l'ensemble des pixels qui sont affichés à l'écran. Le script va donc procéder à la reconstuction des frames qui se succèdent sur l'écran de la META et enregistrer chacun d'entre eux dans un fichier au format PNG. Tous ces fichiers seront numérotés pour conserver l'ordre de capture. Vous pourrez alors utiliser l'outil `convert`, qui fait partie de la suite logicielle ImageMagick, pour convertir cette série de fichiers PNG en une GIF animée.
+Maintenant que votre croquis est configuré, vous pouvez passer à l'enregistrement de l'écran de votre console. Pour cela, vous allez avoir besoin d'un scipt PHP (`screenrecord`) qui va écouter le port série par lequel la META va communiquer ses données à votre ordinateur. `screenrecord` va donc réceptionner ces données brutes : il s'agit d'un flot d'entiers sur 16 bits codant les couleurs de l'ensemble des pixels qui sont affichés à l'écran. Le script va donc décoder toutes ces données, procéder à la reconstuction des frames qui se succèdent sur l'écran de la META et enregistrer chacun d'entre eux dans un fichier au format PNG. Tous ces fichiers seront numérotés pour conserver l'ordre de capture. Vous pourrez alors utiliser l'outil `convert`, qui fait partie de la suite logicielle ImageMagick, pour convertir cette série de fichiers PNG en une GIF animée.
 
-Nous allons commencer par télécharger le script PHP pour l'installer sur votre ordinateur. Pour cela, faites un clic droit sur le lien suivant : [screenrecord](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/screenrecord), puis sélectionnez ***Enregistrer le lien sous...*** et sauvegardez-le quelque-part sur votre ordinateur. Par exemple, dans votre dossier `Downloads` (ou `Téléchargements`).
+Nous allons commencer par télécharger le script PHP pour l'installer sur votre ordinateur. Pour cela, faites un clic droit sur le lien suivant : [screenrecord](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/screenrecord), puis sélectionnez ***Enregistrer le lien sous...*** et sauvegardez-le dans votre dossier `Téléchargements`.
 
 
 # Installation du script
@@ -101,20 +101,20 @@ Pour vérifier que l'on peut bien exécuter le script, on pourra lancer la comma
 $ php C:\bin\screenrecord.php -h
 ```
 
-Ça fait un peu long, nan ? Pour simplifier les choses nous allons créer un fichier *batch* qui va le faire à notre place. Et nous nommerons ce fichier... `screenrecord` (voilà pourquoi nous avons ajouté l'extension `.php` à notre script PHP tout à l'heure). Donc créez ce fichier dans votre répertoire `C:\bin` et inscrivez-y les lignes suivante :
+Ça fait un peu long, nan ? Pour simplifier les choses nous allons créer un fichier *batch* qui va le faire à notre place. Et nous nommerons ce fichier `screenrecord.bat`. Donc créez ce fichier dans votre répertoire `C:\bin` et inscrivez-y les lignes suivante :
 
-<div class="filename">C:\bin\screenrecord</div>
+<div class="filename">C:\bin\screenrecord.bat</div>
 ```
 @echo OFF
 php C:\bin\screenrecord.php %*
 ```
 
-Il ne nous reste plus qu'à ajouter `C:\bin` à la variable d'environnement `Path`, en procédant comme nous l'avons fait dans la section [Préparation](../preparation) lors de l'installation de PHP...
+Il ne nous reste plus qu'à ajouter `C:\bin` à la variable d'environnement `Path`, en procédant comme nous l'avons fait dans la section [Préparation](../preparation/) lors de l'installation de PHP...
 
 Et maintenant, vous pouvez lancer ce fichier de commande batch depuis n'importe quel répertoire :
 
 ```bash
-$ screenrecord -h
+$ screenrecord.bat -h
 
 +---------------------------------------+
 |    Gamebuino META Screen Recorder     |
@@ -185,13 +185,13 @@ $ mkdir frames
 Compilez et téléchargez votre code C++ sur la META pour lancer votre application, puis exécutez la commande suivante (en prenant soin de remplacer l'identifiant du port série par celui qui vous correspond) :
 
 ```bash
-$ screenrecord -d frames -p /dev/cu.usbmodem141401 # <-- macOS & Linux
-$ screenrecord -d frames -p COM18                  # <-- Windows 10
+$ screenrecord -d frames -p /dev/cu.usbmodem141401     # <-- macOS & Linux
+$ screenrecord.bat -d frames -p COM18                  # <-- Windows 10
 ```
 
 Vous allez constater que le script se met en attente des données qui vont arriver sur le port série...
 
-Sur la META, pour lancer l'enregistrement, appuyez longuement (au moins 1 seconde) sur le bouton **MENU** (puis vous pouvez relâcher). Vous remarquerez que les LEDs de la console émettent des flashes rouges à intervalles réguliers. Cela signifie qu'elle est bel et bien en train d'envoyer les données d'enregistrement sur le port série. Dans le même temps, vous verrez sur votre interpréteur de commande que le script réceptionne bien ces données et les enregistre dans l'ordre d'arrivée des captures. Vous devriez observer quelque-chose dans ce goût là :
+Sur la META, pour lancer l'enregistrement, appuyez longuement (au moins 1 seconde) sur le bouton **MENU** (puis vous pouvez relâcher). Vous remarquerez que les LEDs de la console émettent des flashs rouges à intervalles réguliers. Cela signifie qu'elle est bel et bien en train d'envoyer les données d'enregistrement sur le port série. Dans le même temps, vous verrez sur votre interpréteur de commande que le script réceptionne bien ces données et les enregistre dans l'ordre d'arrivée des captures. Vous devriez observer quelque-chose dans ce goût là :
 
 ```
 $ screenrecord -d frames
@@ -284,6 +284,6 @@ ScreenRecorder::stopRecording();  // pour stopper l'enregistrement
 
 De cette manière, vous contrôlerez plus précisément les scènes que vous enregistrerez, et vous pourrez produire des GIF qui correspondent exactement à ce que vous souhaitez nous montrer <i class="far fa-smile"></i>
 
-J'espère que cet outil vous sera utile. J'en avais moi-même un grand besoin, et je suis très content de pouvoir le partager aujourd'hui. Si vous relevez des dysfonctionnements, si vous entrevoyez des améliorations possibles, ou si vous voulez me montrer les captures dont vous êtes le plus fier, n'hésitez pas à me laisser un petit commentaire !
+J'espère que cet outil vous sera utile. J'en avais moi-même un grand besoin, et je suis très content de pouvoir le partager aujourd'hui. Si vous relevez des dysfonctionnements, si vous entrevoyez des améliorations possibles, ou si vous voulez me montrer les captures dont vous êtes le plus fier, n'hésitez pas à me laisser un petit commentaire [sur la page de cette création](https://gamebuino.com/creations/meta-screen-recorder) !
 
-Le code de la classe `ScreenRecorder` et celui du script `screenrecord` sont à votre disposition. Vous pouvez les modifier librement, et si vous les améliorez, on compte sur vous pour nous en faire profiter <i class="far fa-smile-wink"></i>
+Le code de la classe `ScreenRecorder` et celui du script `screenrecord` sont à votre disposition [sur mon dépôt GitHub](https://github.com/iw4rr10r/gb-meta-screen-recorder/tree/master/sources). Vous pouvez les modifier librement, et si vous les améliorez, on compte sur vous pour nous en faire profiter <i class="far fa-smile-wink"></i>
