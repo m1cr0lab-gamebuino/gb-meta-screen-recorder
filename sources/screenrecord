@@ -276,7 +276,9 @@ class ScreenRecorder
             while ($this->recording) {
                 $this->decodeScreenShot($n++);
             }
-            printf("%s PNG files have been recorded in %sx%s (%s resolution).\n\n", $n - 2, $this->screenwidth, $this->screenheight, $this->hd ? 'high' : 'standard');
+
+            // recording has been stopped at this stage
+            printf("\n%s PNG files have been recorded in %sx%s (%s resolution).\n\n", $n - 2, $this->screenwidth, $this->screenheight, $this->hd ? 'high' : 'standard');
             
             // display how to generate an animated GIF from PNG files
             $buffer  = sprintf("You must have %s installed to convert these PNG files into an animated GIF file.\n", $this->highlight('imagemagick'));
@@ -319,9 +321,6 @@ class ScreenRecorder
      * @return void
      */
     private function decodeScreenShot(int $n) {
-
-        print(sprintf("Decoding frame %'0".$this->digits."d...", $n));
-
         // creates an empty (black) image at the size of the META screen
         $gd = @imagecreatetruecolor($this->screenwidth, $this->screenheight)
               or die("\n\n[Error] Unable to create a GD image stream.\n\n");
@@ -335,6 +334,7 @@ class ScreenRecorder
                 if ($tag == 'stop') {
                     $this->recording = false;
                 } else {
+                    if ($i == 0) print(sprintf("Decoding frame %'0".$this->digits."d...", $n));
                     // decodes all remaining 16-bit integers of the current slice
                     // remember that 4 bytes have already been taken from the data stream
                     $slice = unpack('n*', fread($this->serial, 2 * $this->screenwidth * $this->sliceheight - 4));
@@ -357,8 +357,6 @@ class ScreenRecorder
             @imagepng($gd, sprintf($this->directory.DIRECTORY_SEPARATOR.$this->basename."-%'0".$this->digits."d.png", $n))
             or die("\n\n[Error] Unable to create the PNG file to save the captured frame.\n\n");
             print(" saved\n");
-        } else {
-            print(" discarded\n\n");
         }
     }
 

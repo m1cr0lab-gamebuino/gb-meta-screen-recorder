@@ -260,7 +260,7 @@ $ convert -delay 3 -loop 0 frames/*.png -scale 160x128 screenrecording.gif
 
 And we get the file `screenrecording.gif` which is as follows:
 
-![GIF animée](../../assets/figures/andy-application-320x256.gif){: width="160" class="shadow"}
+![Animated GIF](../../assets/figures/andy-application-320x256.gif){: width="160" class="shadow"}
 
 > **Note**
 >

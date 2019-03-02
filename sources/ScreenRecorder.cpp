@@ -19,7 +19,8 @@ uint8_t  ScreenRecorder::sliceHeight  = 0;
 uint32_t ScreenRecorder::timer        = 0;
 bool     ScreenRecorder::initialized  = false;
 bool     ScreenRecorder::recording    = false;
-bool     ScreenRecorder::ready        = false;
+bool     ScreenRecorder::readyToStart = false;
+bool     ScreenRecorder::readyToStop  = false;
 bool     ScreenRecorder::lightsOn     = false;
 
 void ScreenRecorder::init(uint8_t sliceHeight) {
@@ -80,7 +81,8 @@ void ScreenRecorder::turnOffLEDs() {
 
 void ScreenRecorder::startRecording() {
     if (!recording) {
-        recording = true;
+        recording   = true;
+        readyToStop = false;
         SerialUSB.print("start");
         SerialUSB.write(screenWidth);
         SerialUSB.write(screenHeight);
@@ -89,10 +91,9 @@ void ScreenRecorder::startRecording() {
 }
 
 void ScreenRecorder::stopRecording() {
-    SerialUSB.print("stop");
-    recording = false;
-    timer = millis();
-    turnOffLEDs();
+    if (recording) {
+        readyToStop = true;
+    }
 }
 
 void ScreenRecorder::capture(uint16_t* buffer) {
@@ -103,11 +104,18 @@ void ScreenRecorder::monitor(uint16_t* buffer, uint16_t sliceIndex) {
     tick();
 
     if (recording) {
-        if (!ready) {
-            ready = sliceIndex == 0;
+        if (!readyToStart) {
+            readyToStart = sliceIndex == 0;
+        }
+
+        if (readyToStop && sliceIndex == 0) {
+            recording = false;
+            timer     = millis();
+            turnOffLEDs();
+            SerialUSB.print("stop");
         }
         
-        if (ready) {
+        if (readyToStart && recording) {
             capture(buffer);
         }
     }

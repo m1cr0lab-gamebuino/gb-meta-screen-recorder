@@ -81,7 +81,8 @@ class ScreenRecorder
         static uint32_t timer;
         static bool     initialized;
         static bool     recording;
-        static bool     ready;
+        static bool     readyToStart;
+        static bool     readyToStop;
         static bool     lightsOn;
 
         static void tick();
