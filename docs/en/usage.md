@@ -165,9 +165,9 @@ In my case it is `/dev/cu.usbmodem141401`. The port identifier will probably be 
 >
 > You will first have to go to the **Device Manager** to identify the right port:
 >
-> ![Device Manager](https://www.swarthmore.edu/NatSci/echeeve1/Class/E02/Lab01/pic2.png){: class="shadow"}
+> ![Device Manager](../../assets/figures/windows-device-manager.png){: class="shadow"}
 >
-> Here, it is the port `COM18`. Remember it for the rest...
+> Here, it is the port `COM13`. Remember it for the rest...
 
 
 ## Manual recording
@@ -186,7 +186,7 @@ Compile and upload your C++ code to the META to launch your application, then ex
 
 ```bash
 $ screenrecord -d frames -p /dev/cu.usbmodem141401     # <-- macOS & Linux
-$ screenrecord.bat -d frames -p COM18                  # <-- Windows 10
+$ screenrecord.bat -d frames -p COM13                  # <-- Windows 10
 ```
 
 You will notice that the script waits for the data by listening on the serial port....

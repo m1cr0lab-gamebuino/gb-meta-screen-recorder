@@ -165,9 +165,9 @@ Mon identifiant est `/dev/cu.usbmodem141401`. L’identifiant du port sera proba
 >
 > Vous devrez préalablement aller jeter un coup d'oeil dans le **Gestionnaire de périphériques** pour identifier le bon port :
 >
-> ![Gestionnaire de périphériques](https://www.swarthmore.edu/NatSci/echeeve1/Class/E02/Lab01/pic2.png){: class="shadow"}
+> ![Gestionnaire de périphériques](../../assets/figures/windows-device-manager.png){: class="shadow"}
 >
-> Ici, il s'agit du port `COM18`. Retenez-le pour la suite...
+> Ici, il s'agit du port `COM13`. Retenez-le pour la suite...
 
 
 ## Effectuer l'enregistrement manuellement
@@ -186,7 +186,7 @@ Compilez et téléchargez votre code C++ sur la META pour lancer votre applicati
 
 ```bash
 $ screenrecord -d frames -p /dev/cu.usbmodem141401     # <-- macOS & Linux
-$ screenrecord.bat -d frames -p COM18                  # <-- Windows 10
+$ screenrecord.bat -d frames -p COM13                  # <-- Windows 10
 ```
 
 Vous allez constater que le script se met en attente des données qui vont arriver sur le port série...
