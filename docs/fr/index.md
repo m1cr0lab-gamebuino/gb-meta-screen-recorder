@@ -8,7 +8,7 @@ lang-ref: index
 
 # Pourquoi un nouvel enregistreur vidéo ?
 
-Vous développez un nouveau jeu ? Vous êtes fier de votre nouvelle création et vous voulez sans plus tarder en faire la démonstration sur [Discord](https://discordapp.com/) ou sur le site [gamebuino.com](https://gamebuino.com) ? Vous aurez probalement envie de faire une GIF animée pour exhiber votre chef-d'œuvre à toute la communauté <i class="far fa-smile"></i>
+Vous développez un nouveau jeu ? Vous êtes fier de votre nouvelle création et vous voulez sans plus tarder en faire la démonstration sur [Discord](https://discordapp.com/) ou sur le site [gamebuino.com](https://gamebuino.com/creations/) ? Vous aurez probalement envie de faire une GIF animée pour exhiber votre chef-d'œuvre à toute la communauté <i class="far fa-smile"></i>
 
 La Gamebuino META dispose de deux outils intégrés qui vous permettent de faire des captures d'écran et des enregistrements vidéos. Ces outils sont directement accessibles via le bouton **Home** <i class="fa fa-home"></i>. Ce qui nous intéresse ici, c'est la **capture vidéo** :
 

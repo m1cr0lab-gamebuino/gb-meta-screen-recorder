@@ -84,7 +84,7 @@ ANIMATED GIF CREATION
 
 ## Windows 10
 
-In the case of Windows, there are a few more complex steps to follow to make PHP work more easily from the command line. I encourage you to consult [this documentation](http://php.net/manual/fr/install.windows.legacy.index.php#install.windows.legacy.commandline) if you wish to apply them.
+In the case of Windows, there are a few more complex steps to follow to make PHP work more easily from the command line. I encourage you to consult [this documentation](http://php.net/manual/en/install.windows.legacy.index.php#install.windows.legacy.commandline) if you wish to apply them.
 
 But we would prefer to use a more immediate method here to get to the point and be able to make our recordings quickly. Remember that you installed PHP in the `C:\PHP7` folder and added it to your `Path` environment variable. In this way, the `php.exe` executable is accessible regardless of the directory in which you are located from your shell.
 
