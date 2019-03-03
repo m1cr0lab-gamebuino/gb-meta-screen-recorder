@@ -227,9 +227,9 @@ Decoding frame 0102... saved
 Decoding frame 0103... saved
 Decoding frame 0104... saved
 Decoding frame 0105... saved
-Decoding frame 0106... discarded
+Decoding frame 0106... saved
 
-105 PNG files have been recorded in 160x128 (high resolution).
+106 PNG files have been recorded in 160x128 (high resolution).
 
 You must have imagemagick installed to convert these PNG files into an animated GIF file.
 For a 25 fps animation, simply type the following command:
@@ -237,8 +237,6 @@ For a 25 fps animation, simply type the following command:
 convert -delay 4 -loop 0 frames/*.png -scale 160x128 screenrecording.gif
 
 ```
-
-Vous voyez que la dernière capture d'écran n'est pas conservée. En effet, dans le cas de la haute résolution, l'enregistrement a de grande chances de s'interrompre avant que la totalité des tranches n'aient été envoyées. Le script décide donc de jeter la dernière capture.
 
 La commande permettant de générer une GIF animée à partir de la série de captures vous est indiquée.
 
@@ -264,7 +262,7 @@ Et nous obtenons le fichier `screenrecording.gif` que voici :
 
 > **Remarque**
 >
-> J'ai un peu triché... j'ai supprimé les frames superflus pour que l'animation en boucle soit parfaitement raccord... <i class="far fa-smile-wink"></i>
+> J'ai un peu triché... j'ai supprimé les frames superflus pour que l'animation en boucle soit parfaitement raccord... <i class="far fa-smile-wink"></i> (il suffit ici de ne conserver que les 64 premiers frames).
 >
 > Il est en effet encore possible de corriger votre enregistrement, en supprimant des frames, ou en les réordonnant si nécessaire. Pratique, nan ?
 

@@ -37,6 +37,12 @@ void setup() {
     // for initialization
 
     ScreenRecorder::init(); // <-- insert this line
+
+    // ---------------------------------------------------------
+    // !!! also insert this one if you are on Windows: !!!
+    // 
+    ScreenRecorder::setForWindows();
+    // ---------------------------------------------------------
 }
 
 void loop() {
@@ -52,16 +58,25 @@ void loop() {
 
 That's all you have to do!..... Simple, right?
 
+> **Important note about Windows**
+> 
+> The implementation of the `fread` PHP function in Windows is buggy: indeed, the read buffer only reveals the accumulated data in 8K packets. Therefore, we are forced to use a trick to get rid of this bug. So it is imperative to add the following line to specify that the data reception will be done on Windows:
+> 
+> `ScreenRecorder::setForWindows();`
+> 
+> If you are on macOS or Linux, do not add this line....
 
 # For an application in high resolution
 
 In the case of an application developed for high resolution, things are a little different. Indeed, you will not be able to use the traditional drawing methods provided by `gb.display`... I encourage you to read [Andy](https://gamebuino.com/@aoneill)'s excellent article on the subject: [High Resolution without gb.display](https://gamebuino.com/creations/high-resolution-without-gb-display), which briefly explains why this is not possible and gives you a workaround method that consists of using `gb.tft` directly. I wrote a very complete tutorial on how to deepen this technique. You can read it if you are interested (beginners may have some difficulty assimilating everything): [Shading Effect in High Resolution](https://iw4rr10r.github.io/gb-shading-effect/). It will give you an in-depth understanding of how to apply this technique in your applications.
 
-To return to our `ScreenRecorder`, and to illustrate how it should be configured for high resolution, we will borrow the code proposed by Andy in his article, which we will slightly modify to define a division of the screen into **horizontal** slices. Indeed, **you will have** to apply this type of cutting to be able to use `ScreenRecorder`.
+To return to our `ScreenRecorder`, and to illustrate how it should be configured for high resolution, we will borrow the code proposed by Andy in his article, which I slightly modified to define a division of the screen into **horizontal** slices. Indeed, **you will have to** apply this type of cutting to be able to use `ScreenRecorder`.
 
-Here is his code, which I slightly modified. I have not yet voluntarily inserted what is necessary for the configuration of the ScreenRecorder:
+> I have already inserted the necessary lines for the configuration of `ScreenRecorder`.
 
-<div class="filename">Sketch.ino</div>
+You can [download this modified version](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/SketchExampleForHD.ino) and review it in detail:
+
+<div class="filename">SketchExampleForHD.ino</div>
 ```cpp
 /*
  * This code is an adaptation of Andy O'Neill's,
@@ -71,6 +86,7 @@ Here is his code, which I slightly modified. I have not yet voluntarily inserted
  */
 
 #include <Gamebuino-Meta.h>
+#include "ScreenRecorder.h"
 
 // Initialization of display constants
 #define SCREEN_WIDTH  160
@@ -101,6 +117,14 @@ void setup() {
     gb.display.init(0, 0, ColorMode::rgb565);
     // Just to push things to the limit for this example, increase to 40fps.
     gb.setFrameRate(32);
+    // 
+    // ------------------------------------------
+    // Initialization of the screen recorder
+    ScreenRecorder::init(SLICE_HEIGHT);
+    // !!! ADD THIS LINE IF YOU ARE ON WINDOWS !!!
+    ScreenRecorder::setForWindows();
+    // ------------------------------------------
+    // 
 }
 
 void loop() {
@@ -141,6 +165,12 @@ void loop() {
         if (sliceIndex != 0) waitForPreviousDraw();
         // And finally send the current buffer slice to the screen!
         customDrawBuffer(0, sliceY, buffer, SCREEN_WIDTH, SLICE_HEIGHT);
+        // 
+        // ------------------------------------------
+        // Record the buffer slice
+        ScreenRecorder::monitor(buffer, sliceIndex);
+        // ------------------------------------------
+        // 
     }
     // Wait for the final slice to complete before leaving the function.
     waitForPreviousDraw();
@@ -169,44 +199,6 @@ void waitForPreviousDraw() {
 If you run this code on the META, you will get the following animation:
 
 ![Animation HD](../../assets/figures/andy-application-320x256.gif){: width="160" class="shadow"}
-
-We still have to insert the code lines necessary to configure our `ScreenRecorder`:
-
-<div class="filename">Sketch.ino</div>
-```cpp
-// at the beginning of the code:
-#include <Gamebuino-Meta.h>
-#include "ScreenRecorder.h" /* <-- insert this line */
-
-// ...
-
-void setup() {
-    gb.begin();
-    gb.display.init(0, 0, ColorMode::rgb565);
-    gb.setFrameRate(32);
-    ScreenRecorder::init(SLICE_HEIGHT); // <-- then this one
-}
-
-void loop() {
-    while (!gb.update());
-
-    for (
-        uint8_t sliceIndex = 0;
-        sliceIndex < SCREEN_HEIGHT / SLICE_HEIGHT;
-        sliceIndex++
-    ) {
-
-        // ...
-
-        customDrawBuffer(0, sliceY, buffer, SCREEN_WIDTH, SLICE_HEIGHT);
-        ScreenRecorder::monitor(buffer, sliceIndex); // <-- and finally this one
-    }
-
-    waitForPreviousDraw();
-}
-
-// ...
-```
 
 You will notice that, unlike the configuration for a standard resolution:
 

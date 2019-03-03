@@ -17,6 +17,8 @@ uint8_t  ScreenRecorder::screenHeight = 0;
 uint8_t  ScreenRecorder::sliceHeight  = 0;
 
 uint32_t ScreenRecorder::timer        = 0;
+uint32_t ScreenRecorder::sendedBytes  = 0;
+bool     ScreenRecorder::windows      = false;
 bool     ScreenRecorder::initialized  = false;
 bool     ScreenRecorder::recording    = false;
 bool     ScreenRecorder::readyToStart = false;
@@ -34,6 +36,10 @@ void ScreenRecorder::init(uint8_t sliceHeight) {
     ScreenRecorder::screenWidth  = hd ? 160 : 80;
     ScreenRecorder::screenHeight = hd ? 128 : 64;
     ScreenRecorder::sliceHeight  = sliceHeight;
+}
+
+void ScreenRecorder::setForWindows() {
+    windows = true;
 }
 
 void ScreenRecorder::tick() {
@@ -83,10 +89,11 @@ void ScreenRecorder::startRecording() {
     if (!recording) {
         recording   = true;
         readyToStop = false;
-        SerialUSB.print("start");
-        SerialUSB.write(screenWidth);
-        SerialUSB.write(screenHeight);
-        SerialUSB.write(sliceHeight);
+        SerialUSB.print("start");      // 5 bytes
+        SerialUSB.write(screenWidth);  // 1 byte
+        SerialUSB.write(screenHeight); // 1 byte
+        SerialUSB.write(sliceHeight);  // 1 byte
+        sendedBytes += 8;
     }
 }
 
@@ -97,7 +104,9 @@ void ScreenRecorder::stopRecording() {
 }
 
 void ScreenRecorder::capture(uint16_t* buffer) {
-    SerialUSB.write((const uint8_t*) buffer, 2 * screenWidth * sliceHeight);
+    uint16_t size = 2 * screenWidth * sliceHeight;
+    SerialUSB.write((const uint8_t*) buffer, size);
+    sendedBytes += size;
 }
 
 void ScreenRecorder::monitor(uint16_t* buffer, uint16_t sliceIndex) {
@@ -113,6 +122,22 @@ void ScreenRecorder::monitor(uint16_t* buffer, uint16_t sliceIndex) {
             timer     = millis();
             turnOffLEDs();
             SerialUSB.print("stop");
+            sendedBytes += 4;
+            if (windows) {
+                // The implementation of the PHP `fread` function on Windows is buggy:
+                // indeed, the read buffer only reveals the accumulated data in 8K packets.
+                // Therefore, we are forced here to add a trick to get rid of this bug.
+                // 
+                // Strangely enough, I tried to simply send the number of bytes needed
+                // to complete the 8Ks after the `stop` tag... but it doesn't seem to work.
+                // So we are sending a big bogus data packet with a size of 8K and it works!
+                // 
+                // If any of you find a better way to proceed, it would be nice to share it
+                // with me ;-)
+                // 
+                // uint16_t windowsFlushingBytes = 8192 - (sendedBytes % 8192);
+                for (uint16_t i=0; i<8192; i++) SerialUSB.write(0xff);
+            }
         }
         
         if (readyToStart && recording) {

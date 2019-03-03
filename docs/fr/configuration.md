@@ -47,38 +47,54 @@ void loop() {
     // en utilisant gb.display
 
     ScreenRecorder::monitor(gb.display._buffer); // <-- insérez cette ligne
+
+    // ---------------------------------------------------------
+    // !!! insérez aussi celle-ci si vous êtes sur Windows : !!!
+    // 
+    ScreenRecorder::setForWindows();
+    // ---------------------------------------------------------
 }
 ```
 
 C'est tout ce que vous avez à faire !... Simple, nan ?
 
+> **Remarque importante à propos de Windows**
+> 
+> L'implémentation de la fonction PHP `fread` sous Windows est buguée : en effet, le tampon de lecture ne révèle les données accumulées que par paquets de 8 ko. Par conséquent, nous sommes contraints d'employer une astuce pour nous affranchir de ce bug. Donc il est **impératif** d'ajouter la ligne suivante pour préciser que la réception des données sera effectuée sur Windows :
+> 
+> `ScreenRecorder::setForWindows();`
+> 
+> Si vous êtes sur macOS ou Linux, **ne rajoutez pas** cette ligne...
 
 # Pour une application en haute résolution
 
 Dans le cas d'une application développée pour la haute résolution, les choses sont un peu différentes. En effet, vous ne pourrez pas utiliser les méthodes d'affichage traditionnelles offertes par `gb.display`... Je vous encourage à lire l'excellent article d'[Andy](https://gamebuino.com/@aoneill) sur le sujet : [High Resolution without gb.display](https://gamebuino.com/creations/high-resolution-without-gb-display), qui vous explique sommairement les raisons pour lesquelles ça n'est pas possible et vous livre une méthode de contournement qui consiste à utiliser directement `gb.tft`. J'ai rédigé un tutoriel très complet sur l'approfondissement de cette technique. Vous pouvez le lire si cela vous intéresse (les débutants auront peut-être quelques difficultés à tout assimiler) :
 [Éclairage Tamisé en Haute Résolution](https://iw4rr10r.github.io/gb-shading-effect/). Il vous permettra de comprendre en profondeur comment appliquer cette technique dans vos applications.
 
-Pour revenir à notre `ScreenRecorder`, et pour illustrer la manière dont on doit le configurer pour la haute résolution, nous allons emprunter le code proposé par Andy dans son article, que nous allons légèrement modifier pour définir un découpage de l'écran en tranches **horizontales**. En effet, **vous devrez** appliquer ce type de découpage pour pouvoir utiliser `ScreenRecorder`.
+Pour revenir à notre `ScreenRecorder`, et pour illustrer la manière dont on doit le configurer pour la haute résolution, nous allons emprunter le code proposé par Andy dans son article, que j'ai légèrement modifié pour définir un découpage de l'écran en tranches **horizontales**. En effet, **vous devrez** appliquer ce type de découpage pour pouvoir utiliser `ScreenRecorder`.
 
-Voici son code, que j'ai légèrement modifié. Je n'y ai volontairement pas encore inséré ce qui est nécessaire pour la configuration du `ScreenRecorder` :
+> J'y ai déjà inséré les lignes nécessaire pour la configuration de `ScreenRecorder`.
 
-<div class="filename">Sketch.ino</div>
+Vous pouvez [télécharger cette version modifiée](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/SketchExampleForHD.ino) et l'examiner en détail :
+
+<div class="filename">SketchExampleForHD.ino</div>
 ```cpp
 /*
- * Ce code est une adaptation de celui d'Andy O'Neill,
- * issu de son article "High Resolution without gb.display",
- * que j'ai légèrement remanié pour appliquer un découpage
- * de l'écran en tranches horizontales.
+ * This code is an adaptation of Andy O'Neill's,
+ * from his article "High Resolution without gb.display",
+ * which I slightly modified to apply a division
+ * of the screen into horizontal slices.
  */
 
 #include <Gamebuino-Meta.h>
+#include "ScreenRecorder.h"
 
-// initialisation des paramètres d'affichage
+// Initialization of display constants
 #define SCREEN_WIDTH  160
 #define SCREEN_HEIGHT 128
-#define SLICE_HEIGHT    8 /* chaque tranche mesure 160x8 pixels */
+#define SLICE_HEIGHT    8 /* each slice measures 160x8 pixels */
 
-// routine magique pour utiliser `wait_for_transfers_done`
+// Magic to get access to wait_for_transfers_done
 namespace Gamebuino_Meta {
     #define DMA_DESC_COUNT (3)
     extern volatile uint32_t dma_desc_free_count;
@@ -92,39 +108,41 @@ namespace Gamebuino_Meta {
     );
 };
 
-// double tampon pour les données d'affichage :
-// on remplit l'un pendant que l'autre est envoyé à l'écran.
+// Double buffers for screen data. Fill one while the other is being sent to the screen.
 uint16_t buffer1[SCREEN_WIDTH * SLICE_HEIGHT];
 uint16_t buffer2[SCREEN_WIDTH * SLICE_HEIGHT];
 
 void setup() {
     gb.begin();
-    // nous n'utilisons pas le tampon d'écran habituel,
-    // donc il faut l'initialiser à 0x0 pixels.
+    // We aren't using the normal screen buffer, so initialize it to 0x0 pixels.
     gb.display.init(0, 0, ColorMode::rgb565);
-    // juste pour obtenir plus de fluidité, on augmente
-    // la fréquence d'affichage à 32 images/seconde.
+    // Just to push things to the limit for this example, increase to 40fps.
     gb.setFrameRate(32);
+    // 
+    // ------------------------------------------
+    // Initialization of the screen recorder
+    ScreenRecorder::init(SLICE_HEIGHT);
+    // !!! ADD THIS LINE IF YOU ARE ON WINDOWS !!!
+    ScreenRecorder::setForWindows();
+    // ------------------------------------------
+    // 
 }
 
 void loop() {
     while (!gb.update());
 
-    // on boucle sur chaque tranche de 160x8 pixels de l'écran.
+    // Loop over each 160x8 pixels slice of the screen.
     for (
         uint8_t sliceIndex = 0;
         sliceIndex < SCREEN_HEIGHT / SLICE_HEIGHT;
         sliceIndex++
     ) {
-        // on alterne entre les tampons :
-        // pendant que l'un d'entre eux est envoyé à l'écran
-        // avec le contrôleur DMA, l'autre peut être utilisé pour
-        // mettre en mémoire tampon la tranche suivante de l'écran.
+        // Alternate between buffers. While one is being sent to
+        // the screen with the DMA controller, the other can be
+        // used for buffering the next slice of the screen.
         uint16_t *buffer = sliceIndex % 2 == 0 ? buffer1 : buffer2;
 
-        // DÉBUT DU REMPLISSAGE DU TAMPON
-        // ici vous pouvez effectuer les tracés que vous voulez,
-        // voici juste un exemple :
+        // BEGIN DRAWING TO BUFFER
         uint16_t sliceY  = sliceIndex * SLICE_HEIGHT;
         uint16_t initRed = sliceY + gb.frameCount;
         uint16_t blue    = gb.frameCount % 32;
@@ -141,20 +159,25 @@ void loop() {
                             ((0b111000 & green) >> 3);
                 }
         }
-        // FIN DU REMPLISSAGE DU TAMPON
+        // END DRAWING TO BUFFER
 
-        // tant qu'il ne s'agit pas du premier passage
-        // on s'assure que l'écriture précédente sur l'écran est terminée.
+        // As long as this isn't the first time through the loop,
+        // make sure the previous write to the screen is done.
         if (sliceIndex != 0) waitForPreviousDraw();
-        // et on envoie enfin le tampon de la tranche courante à l'écran !
+        // And finally send the current buffer slice to the screen!
         customDrawBuffer(0, sliceY, buffer, SCREEN_WIDTH, SLICE_HEIGHT);
+        // 
+        // ------------------------------------------
+        // Record the buffer slice
+        ScreenRecorder::monitor(buffer, sliceIndex);
+        // ------------------------------------------
+        // 
     }
-    // on attend que la dernière tranche soit terminée
-    // avant de quitter la fonction.
+    // Wait for the final slice to complete before leaving the function.
     waitForPreviousDraw();
 }
 
-// on utilise des appels à gb.tft pour communiquer avec l'écran.
+// Use gb.tft calls to communicate with the screen.
 void customDrawBuffer(
     int16_t x,
     int16_t y,
@@ -177,44 +200,6 @@ void waitForPreviousDraw() {
 Si vous lancez ce code sur la META, vous obtiendrez l'animation suivante :
 
 ![Animation HD](../../assets/figures/andy-application-320x256.gif){: width="160" class="shadow"}
-
-Il nous reste donc à insérer les lignes de codes nécessaires à la configuration de notre enregistreur `ScreenRecorder` :
-
-<div class="filename">Sketch.ino</div>
-```cpp
-// en début de code :
-#include <Gamebuino-Meta.h>
-#include "ScreenRecorder.h" /* <-- insérez cette ligne */
-
-// ...
-
-void setup() {
-    gb.begin();
-    gb.display.init(0, 0, ColorMode::rgb565);
-    gb.setFrameRate(32);
-    ScreenRecorder::init(SLICE_HEIGHT); // <-- puis celle-ci
-}
-
-void loop() {
-    while (!gb.update());
-
-    for (
-        uint8_t sliceIndex = 0;
-        sliceIndex < SCREEN_HEIGHT / SLICE_HEIGHT;
-        sliceIndex++
-    ) {
-
-        // ...
-
-        customDrawBuffer(0, sliceY, buffer, SCREEN_WIDTH, SLICE_HEIGHT);
-        ScreenRecorder::monitor(buffer, sliceIndex); // <-- et enfin celle-là
-    }
-
-    waitForPreviousDraw();
-}
-
-// ...
-```
 
 Vous remarquerez que, contrairement à la configuration pour une résolution standard :
 

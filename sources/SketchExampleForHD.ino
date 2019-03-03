@@ -39,6 +39,8 @@ void setup() {
     gb.setFrameRate(32);
     // Initialization of the screen recorder
     ScreenRecorder::init(SLICE_HEIGHT);
+    // !!! ADD THIS LINE IF YOU ARE ON WINDOWS !!!
+    ScreenRecorder::setForWindows();
 }
 
 void loop() {
