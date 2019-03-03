@@ -25,6 +25,7 @@
  * - insert the following line in your `setup()` function:
  * ------------------------------------------------------------------
  * ScreenRecorder::init();
+ * ScreenRecorder::setForWindows(); // if your are on Windows
  * ------------------------------------------------------------------
  * 
  * - insert the following line in your `loop()` function:
@@ -42,6 +43,7 @@
  *                  Only 2, 4, 8 or 16 are valid values
  * ------------------------------------------------------------------
  * ScreenRecorder::init(SLICE_HEIGHT);
+ * ScreenRecorder::setForWindows();    // if your are on Windows
  * ------------------------------------------------------------------
  * 
  * - insert the following line when your slice buffer has been

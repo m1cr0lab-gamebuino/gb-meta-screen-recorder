@@ -18,10 +18,12 @@
  * 
  * ----------------------------------------------------------------------------------
  * // if rendering is performed in standard resolution
- * ScreenRecorder::init(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_HEIGHT);
+ * ScreenRecorder::init();
+ * ScreenRecorder::setForWindows(); // if your are on Windows
  * 
  * // if rendering is performed in high resolution (by cutting the screen into slices)
- * ScreenRecorder::init(SCREEN_WIDTH, SCREEN_HEIGHT, RENDERING_SLICE_HEIGHT);
+ * ScreenRecorder::init(RENDERING_SLICE_HEIGHT);
+ * ScreenRecorder::setForWindows(); // if your are on Windows
  * ----------------------------------------------------------------------------------
  * 
  * Then insert the following line in the appropriate place in your code,
