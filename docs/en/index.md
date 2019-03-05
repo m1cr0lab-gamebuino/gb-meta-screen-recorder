@@ -8,7 +8,7 @@ lang-ref: index
 
 # Why a new screen recorder?
 
-Are you developing a new game? Are you proud of your new creation and want to demonstrate it without further delay on [Discord](https://discordapp.com/) or on the [gamebuino.com](https://gamebuino.com/creations/) website? You will probably want to do an animated GIF to show your masterpiece to the whole community <i class="far fa-smile"></i>
+Are you developing a new game? Are you proud of your new creation and want to demonstrate it without further delay on [Discord](https://discordapp.com/) or on the [gamebuino.com](https://gamebuino.com/creations/) website? You will probably want to create an animated GIF to show your masterpiece to the whole community <i class="far fa-smile"></i>
 
 The Gamebuino META has two built-in tools that allow you to take screenshots and screen recordings. These tools are directly accessible via the **Home** <i class="fa fa-home"></i> button. What interests us here is the **video capture**:
 
