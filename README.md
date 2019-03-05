@@ -7,4 +7,4 @@ Check out the [documentation](http://iw4rr10r.github.io/gb-meta-screen-recorder)
 This tool is officially hosted on the Gamebuino website:
 
 - as a [Creation](https://gamebuino.com/creations/meta-screen-recorder)
-- as a [Standalone Tutorial](https://gamebuino.com/academy/standalone/create-animated-gifs-from-screen-recording)
+- as a [Standalone Tutorial in the Academy](https://gamebuino.com/academy/standalone/create-animated-gifs-from-screen-recording)
