@@ -11,8 +11,8 @@ lang-ref: setup
 
 To record successive screenshots of an application running on your META, you will need a specific component to perform this task: the `ScreenRecorder`. To integrate this component into your project, you will need to download two files that respectively declare and define the C++ `ScreenRecorder` class:
 
-- [ScreenRecorder.h](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.h) qui est le fichier d'en-tête déclaratif de la classe,
-- [ScreenRecorder.cpp](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.cpp) qui est le fichier de définition de la classe.
+- [ScreenRecorder.h](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.h) which is the declarative header file of the class,
+- [ScreenRecorder.cpp](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.cpp) which is the class definition file.
 
 > To download them, right-click on each of the links, and select **Save Link As...** to save it in your project directory.
 
@@ -33,8 +33,8 @@ Edit the main sketch of your application (here, I will name it `Sketch.ino`) and
 void setup() {
     gb.begin();
 
-    // your instructions
-    // for initialization
+    // your initialization
+    // instructions 
 
     ScreenRecorder::init(); // <-- insert this line
 
@@ -48,7 +48,7 @@ void setup() {
 void loop() {
     while (!gb.update());
     
-    // your instructions that can
+    // your instructions to
     // make on-screen plots
     // using gb.display
 
@@ -211,7 +211,7 @@ In addition, you can see that the `ScreenRecorder` is only invoked after the cur
 >
 > When initializing the `ScreenRecorder`, note that the height of the slices must necessarily be a non-zero power of `2`, whose maximum value is `16`... so only the values `2`, `4`, `8` and `16` will be taken into account. If you use a value greater than `16`, the recording will simply be disabled. And if you use a value lower than `16` which is not a power of `2`, you will get a rather strange recording...  <i class="far fa-smile"></i>
 >
-> I advise you to use the value `8` which only requires `2` x `2.5` = `5` kb in RAM.
+> I advise you to use the value `8` which only requires `2` x `2.5` = `5` KB in RAM.
 
 
 # How to configure automatic recording

@@ -42,7 +42,7 @@ To be able to install and use this tool under the best conditions, you must:
 
 Owning a Gamebuino META is obviously essential to be able to record the screen.
 
-Finally, to be able to run this utility and generate animated GIFs, you will need the following free software on your computer:
+Finally, to be able to run this utility and create animated GIFs, you will need the following free software on your computer:
 
 - **PHP 7.x** for **CLI** (*Command Line Interface*), i.e. accessible from your shell,
 - **ImageMagick**, which includes a library and a set of command line utilities to create, convert, edit and display images in a wide variety of formats.

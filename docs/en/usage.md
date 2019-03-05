@@ -73,8 +73,8 @@ OPTIONS
 
 ANIMATED GIF CREATION
 
-	You must have imagemagick installed to be able to generate the animated GIF file.
-	For example, to generate an animation with a resolution of 160x128 pixels at 25 fps,
+	You must have imagemagick installed to be able to create the animated GIF file.
+	For example, to create an animation with a resolution of 160x128 pixels at 25 fps,
 	simply type the following command:
 
 	convert -delay 4 -loop 0 png_dir_path/*.png -scale 160x128 screenrecording.gif
@@ -139,8 +139,8 @@ OPTIONS
 
 ANIMATED GIF CREATION
 
-	You must have imagemagick installed to be able to generate the animated GIF file.
-	For example, to generate an animation with a resolution of 160x128 pixels at 25 fps,
+	You must have imagemagick installed to be able to create the animated GIF file.
+	For example, to create an animation with a resolution of 160x128 pixels at 25 fps,
 	simply type the following command:
 
 	convert -delay 4 -loop 0 png_dir_path/*.png -scale 160x128 screenrecording.gif
@@ -176,7 +176,7 @@ Now that we have identified the right port, and we can execute the `screenrecord
 
 In the previous chapter, we created an application for high resolution (`Sketch.ino`). If you have copied it, you can go to the corresponding directory.
 
-As we have seen, the PHP script will generate a series of PNG files during the screen recording. I suggest you to create a directory that will allow you to host these files so as not to mess up your project <i class="far fa-smile"></i> We will name this directory `frames` :
+As we have seen, the PHP script will create a series of PNG files during the screen recording. I suggest you to create a directory that will allow you to host these files so as not to mess up your project <i class="far fa-smile"></i> We will name this directory `frames` :
 
 ```bash
 $ mkdir frames
@@ -238,7 +238,7 @@ convert -delay 4 -loop 0 frames/*.png -scale 160x128 screenrecording.gif
 
 ```
 
-Finally, the command to generate the GIF from the series of captures is indicated.
+Finally, the command to create the GIF from the series of captures is indicated.
 
 > **Note on the `delay` option**
 >

@@ -64,8 +64,8 @@
  * ScreenRecorder::stopRecording();
  * ----------------------------------------------------------------------------------
  * 
- * To generate an animated GIF, you must have installed the `imagemagick` software
- * beforehand and use its `convert` program. For example, to generate an animation
+ * To create an animated GIF, you must have installed the `imagemagick` software
+ * beforehand and use its `convert` program. For example, to create an animation
  * of 160x128 pixels at 25 fps, run the following command:
  * 
  * ----------------------------------------------------------------------------------
@@ -84,7 +84,7 @@
 define('SERIAL_DEVICE_ID', '/dev/cu.usbmodem141401');
 
 /**
- * Root name of the PNG files that will be generated.
+ * Root name of the PNG files that will be created.
  */
 define('SAVEFILE_BASENAME', 'frame');
 
@@ -230,8 +230,8 @@ class ScreenRecorder
         $buffer .= sprintf("\t%s  sets the image files basename (default: %s)\n", $this->highlight('-b'), SAVEFILE_BASENAME);
         $buffer .= sprintf("\t%s  sets the number of digits to number the image files (default: %s)\n\n", $this->highlight('-n'), NUM_DIGITS_SAVEFILE);
         $buffer .= "ANIMATED GIF CREATION\n\n";
-        $buffer .= sprintf("\tYou must have %s installed to be able to generate the animated GIF file.\n", $this->highlight('imagemagick'));
-        $buffer .= "\tFor example, to generate an animation with a resolution of 160x128 pixels at 25 fps,\n";
+        $buffer .= sprintf("\tYou must have %s installed to be able to create the animated GIF file.\n", $this->highlight('imagemagick'));
+        $buffer .= "\tFor example, to create an animation with a resolution of 160x128 pixels at 25 fps,\n";
         $buffer .= "\tsimply type the following command:\n\n";
         $buffer .= $this->highlight("\tconvert -delay 4 -loop 0 png_dir_path/*.png -scale 160x128 screenrecording.gif\n\n");
         echo $buffer;
@@ -282,7 +282,7 @@ class ScreenRecorder
             // recording has been stopped at this stage
             printf("\n%s PNG files have been recorded in %sx%s (%s resolution).\n\n", $n - 2, $this->screenwidth, $this->screenheight, $this->hd ? 'high' : 'standard');
             
-            // display how to generate an animated GIF from PNG files
+            // display how to create an animated GIF from PNG files
             $buffer  = sprintf("You must have %s installed to convert these PNG files into an animated GIF file.\n", $this->highlight('imagemagick'));
             $buffer .= "For a 25 fps animation, simply type the following command:\n\n";
             $buffer .= $this->highlight(sprintf("convert -delay 4 -loop 0 %s/*.png -scale %sx%s screenrecording.gif\n\n", $this->directory, $this->screenwidth, $this->screenheight));
@@ -430,7 +430,7 @@ class ScreenRecorder
                 // and if this code does not correspond to black...
                 if ($c) {
                     // separates the red, green and blue signals from the RGB888 code
-                    // and generates the corresponding displayable color
+                    // and creates the corresponding displayable color
                     $color = @imagecolorallocate($gd, ($c & 0xff0000) >> 16, ($c & 0xff00) >> 8, $c & 0xff)
                              or die("\n\n[Error] Unable to allocate a color for the current image.\n\n");;
                     // sets the color of the pixel at the (x,y + yOffset) coordinates on the image
