@@ -29,9 +29,9 @@ Ceci m'a naturellement amené à développer un petit utilitaire qui réponde à
 
 # Quels sont les prérequis de mise en œuvre ?
 
-|                   |           Débutant           |           Intermédiaire            | Avancé | Expert |
-|------------------:|:----------------------------:|:----------------------------------:|:------:|:------:|
-| **Niveau requis** | <i class="fas fa-check"></i> | <i class="fas fa-check faded"></i> |        |        |
+|                   |           Débutant                 |     Intermédiaire            | Avancé | Expert |
+|------------------:|:----------------------------------:|:----------------------------:|:------:|:------:|
+| **Niveau requis** | <i class="fas fa-check faded"></i> | <i class="fas fa-check"></i> |        |        |
 
 Pour pouvoir installer et utiliser cet outil dans les meilleures conditions, vous devez :
 

@@ -29,9 +29,9 @@ This naturally led me to develop a small utility that meets my needs:
 
 # What are the implementation requirements?
 
-|                    |           Beginner           |           Intermediary             | Advanced | Expert |
-|-------------------:|:----------------------------:|:----------------------------------:|:--------:|:------:|
-| **Required level** | <i class="fas fa-check"></i> | <i class="fas fa-check faded"></i> |          |        |
+|                    |           Beginner                 |     Intermediary             | Advanced | Expert |
+|-------------------:|:----------------------------------:|:----------------------------:|:--------:|:------:|
+| **Required level** | <i class="fas fa-check faded"></i> | <i class="fas fa-check"></i> |          |        |
 
 To be able to install and use this tool under the best conditions, you must:
 
