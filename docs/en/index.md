@@ -16,14 +16,14 @@ The Gamebuino META has two built-in tools that allow you to take screenshots and
 
 The tool provided with the META is very useful, certainly... nevertheless it is quite **limited** and above all **extremely binding**!
 
-- Limited because it **does not** allow to record a screen capture of an application developed for **high resolution** (`160x128` pixels). Only the standard resolution (`80x64` pixels) is supported. In addition, you cannot start or stop recording directly in your code at a specific time, or when certain events occur: you must necessarily interrupt the progress of your application and go through the menu accessible with the Home button.
+- Limited because it **does not** allow to record a screen capture of an application developed for **high resolution** (`160x128` pixels). Only the standard resolution (`80x64` pixels) is supported. Recording in standard resolution can be started by interrupting your application to open the menu accessible by the Home button, which is inconvenient. However, you can trigger it by inserting appropriate instructions into your code.
 
 - Binding because the capture tool saves a file in **GMV** format... which is very lightweight, but not readable in a web browser. So you can't do anything with it as it is. [Soru](https://gamebuino.com/@sorunome) has developed a [small utility](https://gamebuino.com/creations/gmv-to-gif-converter) that allows you to convert this GMV file into an animated GIF. But you will have to get the GMV file from the microSD card before you can convert it... For those who have already done the exercise, you will admit that these manipulations can drive you crazy when you do it again 10 times to get a recording that suits you!
 
 This naturally led me to develop a small utility that meets my needs:
 
 - **Simpler** and **faster** to use.
-- **More flexible** in that I can now trigger or stop recording in multiple ways: either by pressing a button, or directly in my code at a specific time, or when certain events occur. In addition, once the recording has been done, I can still rework the screenshots, or even delete unnecessary screens, before generating my animated GIF.
+- **More flexible** in that I can now trigger or stop recording in multiple ways: either by simply pressing a button, or directly in my code at a specific time, or when certain events occur. In addition, once the recording has been done, I can still rework the screenshots, or even delete unnecessary screens, before generating my animated GIF.
 - More **advanced** since I can now access high resolution.
 
 
