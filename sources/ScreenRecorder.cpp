@@ -15,6 +15,7 @@ const Color    ScreenRecorder::FLASHING_COLOR   = gb.createColor(255, 0, 0);
 uint8_t  ScreenRecorder::screenWidth  = 0;
 uint8_t  ScreenRecorder::screenHeight = 0;
 uint8_t  ScreenRecorder::sliceHeight  = 0;
+bool     ScreenRecorder::indexed      = false;
 
 uint32_t ScreenRecorder::timer        = 0;
 uint32_t ScreenRecorder::sendedBytes  = 0;
@@ -25,7 +26,7 @@ bool     ScreenRecorder::readyToStart = false;
 bool     ScreenRecorder::readyToStop  = false;
 bool     ScreenRecorder::lightsOn     = false;
 
-void ScreenRecorder::init(uint8_t sliceHeight) {
+void ScreenRecorder::init(uint8_t sliceHeight, bool indexed) {
     initialized = (sliceHeight ==  2) ||
                   (sliceHeight ==  4) ||
                   (sliceHeight ==  8) ||
@@ -36,6 +37,7 @@ void ScreenRecorder::init(uint8_t sliceHeight) {
     ScreenRecorder::screenWidth  = hd ? 160 : 80;
     ScreenRecorder::screenHeight = hd ? 128 : 64;
     ScreenRecorder::sliceHeight  = sliceHeight;
+    ScreenRecorder::indexed = indexed;
 }
 
 void ScreenRecorder::setForWindows() {
@@ -103,10 +105,40 @@ void ScreenRecorder::stopRecording() {
     }
 }
 
+inline uint16_t swap_endians_16(uint16_t b) {
+  return (b << 8) | (b >> 8);
+}
+
 void ScreenRecorder::capture(uint16_t* buffer) {
-    uint16_t size = 2 * screenWidth * sliceHeight;
-    SerialUSB.write((const uint8_t*) buffer, size);
-    sendedBytes += size;
+    uint16_t sizeInPixels = screenWidth * sliceHeight;
+    uint16_t sizeInBytes = 2 * sizeInPixels;
+    if (!indexed) {
+        SerialUSB.write((const uint8_t*) buffer, sizeInBytes);
+        sendedBytes += sizeInBytes;
+    } else {
+        // Before sending, convert 4-bit index into 2-byte colors
+        uint16_t dstArray[sizeInPixels];
+        uint16_t* dstEnd = dstArray + sizeInPixels;
+        Color* index = gb.display.colorIndex;
+        uint16_t* src = buffer;
+        for (int i = screenHeight / sliceHeight; --i >= 0; ) {
+            uint16_t* dst = dstArray;
+            while (dst != dstEnd) {
+                uint16_t index1 = (*src >>  4) & 0x000F;
+                uint16_t index2 = (*src >>  0) & 0x000F;
+                uint16_t index3 = (*src >> 12) & 0x000F;
+                uint16_t index4 = (*src >>  8) & 0x000F;
+                // Change pixel order (because of words endianness) at the same time
+                *dst++ = swap_endians_16((uint16_t)index[index1]);
+                *dst++ = swap_endians_16((uint16_t)index[index2]);
+                *dst++ = swap_endians_16((uint16_t)index[index3]);
+                *dst++ = swap_endians_16((uint16_t)index[index4]);
+                src++;
+            }
+            SerialUSB.write((const uint8_t*) dstArray, sizeInBytes);
+            sendedBytes += sizeInBytes;
+        }
+    }
 }
 
 void ScreenRecorder::monitor(uint16_t* buffer, uint16_t sliceIndex) {

@@ -79,6 +79,7 @@ class ScreenRecorder
         static uint8_t screenWidth;
         static uint8_t screenHeight;
         static uint8_t sliceHeight;
+        static bool    indexed;
 
         static uint32_t timer;
         static uint32_t sendedBytes;
@@ -99,7 +100,7 @@ class ScreenRecorder
 
     public:
 
-        static void init(uint8_t sliceHeight = 64);
+        static void init(uint8_t sliceHeight = 64, bool indexed = false);
         static void setForWindows();
         static void monitor(uint16_t* buffer, uint16_t sliceIndex = 0);
         static void startRecording();
