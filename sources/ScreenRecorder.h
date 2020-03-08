@@ -3,6 +3,8 @@
  * |    Gamebuino META Screen Recorder     | 
  * | © 2019 Stéphane Calderoni (aka Steph) |
  * |     https://gamebuino.com/@steph      |
+ * | Contributor:                          |
+ * |        Erwin Bonsma (@eriban)         |
  * +---------------------------------------+
  */
 
