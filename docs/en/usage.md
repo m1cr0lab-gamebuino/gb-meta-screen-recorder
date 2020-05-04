@@ -11,7 +11,7 @@ lang-ref: usage
 
 Now that your sketch is configured, you can proceed to save your META screen. To do this, you will need a PHP scipt (`screenrecord`) that will listen to the serial port through which the console will communicate its data to your computer. `screenrecord` will therefore receive this raw data: it is a stream of 16-bit integers encoding the colors of all the pixels that are displayed on the screen. The script will therefore decode all this data, rebuild the frames that follow each other on the META screen and save each of them in a PNG file. All these files will be numbered to keep the order of capture. You can then use the `convert` tool, which is part of the ImageMagick software suite, to convert this series of PNG files into an animated GIF.
 
-We will start by downloading the PHP script to install it on your computer. To do this, right-click on the following link: [screenrecord](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/screenrecord), then select ***Save link as...*** and save it in your `Downloads` folder.
+We will start by downloading the PHP script to install it on your computer. To do this, right-click on the following link: [screenrecord](https://raw.githubusercontent.com/m1cr0lab-gamebuino/gb-meta-screen-recorder/master/sources/screenrecord), then select ***Save link as...*** and save it in your `Downloads` folder.
 
 
 # Installing the script
@@ -284,4 +284,4 @@ This way, you will be able to control more precisely the scenes you record, and 
 
 I hope you will find this tool useful. I had a great need for it myself, and I am very happy to be able to share it today. If you notice any dysfunctions, if you see possible improvements, or if you want to show me the captures you are most proud of, don't hesitate to leave me a little comment on the [page of this creation](https://gamebuino.com/creations/meta-screen-recorder)!
 
-The code of the `ScreenRecorder` class and the `screenrecord` script are available [on my GitHub repository](https://github.com/iw4rr10r/gb-meta-screen-recorder/tree/master/sources). You can modify them freely, and if you improve them, we count on you to let us benefit from them <i class="far fa-smile-wink"></i>
+The code of the `ScreenRecorder` class and the `screenrecord` script are available [on my GitHub repository](https://github.com/m1cr0lab-gamebuino/gb-meta-screen-recorder/tree/master/sources). You can modify them freely, and if you improve them, we count on you to let us benefit from them <i class="far fa-smile-wink"></i>

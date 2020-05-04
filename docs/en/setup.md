@@ -11,8 +11,8 @@ lang-ref: setup
 
 To record successive screenshots of an application running on your META, you will need a specific component to perform this task: the `ScreenRecorder`. To integrate this component into your project, you will need to download two files that respectively declare and define the C++ `ScreenRecorder` class:
 
-- [ScreenRecorder.h](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.h) which is the declarative header file of the class,
-- [ScreenRecorder.cpp](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.cpp) which is the class definition file.
+- [ScreenRecorder.h](https://raw.githubusercontent.com/m1cr0lab-gamebuino/gb-meta-screen-recorder/master/sources/ScreenRecorder.h) which is the declarative header file of the class,
+- [ScreenRecorder.cpp](https://raw.githubusercontent.com/m1cr0lab-gamebuino/gb-meta-screen-recorder/master/sources/ScreenRecorder.cpp) which is the class definition file.
 
 > To download them, right-click on each of the links, and select **Save Link As...** to save it in your project directory.
 
@@ -68,13 +68,13 @@ That's all you have to do!..... Simple, right?
 
 # For an application in high resolution
 
-In the case of an application developed for high resolution, things are a little different. Indeed, you will not be able to use the traditional drawing methods provided by `gb.display`... I encourage you to read [Andy](https://gamebuino.com/@aoneill)'s excellent article on the subject: [High Resolution without gb.display](https://gamebuino.com/creations/high-resolution-without-gb-display), which briefly explains why this is not possible and gives you a workaround method that consists of using `gb.tft` directly. I wrote a very complete tutorial on how to deepen this technique. You can read it if you are interested (beginners may have some difficulty assimilating everything): [Shading Effect in High Resolution](https://iw4rr10r.github.io/gb-shading-effect/). It will give you an in-depth understanding of how to apply this technique in your applications.
+In the case of an application developed for high resolution, things are a little different. Indeed, you will not be able to use the traditional drawing methods provided by `gb.display`... I encourage you to read [Andy](https://gamebuino.com/@aoneill)'s excellent article on the subject: [High Resolution without gb.display](https://gamebuino.com/creations/high-resolution-without-gb-display), which briefly explains why this is not possible and gives you a workaround method that consists of using `gb.tft` directly. I wrote a very complete tutorial on how to deepen this technique. You can read it if you are interested (beginners may have some difficulty assimilating everything): [Shading Effect in High Resolution](https://m1cr0lab-gamebuino.github.io/gb-shading-effect/). It will give you an in-depth understanding of how to apply this technique in your applications.
 
 To return to our `ScreenRecorder`, and to illustrate how it should be configured for high resolution, we will borrow the code proposed by Andy in his article, which I slightly modified to define a division of the screen into **horizontal** slices. Indeed, **you will have to** apply this type of cutting to be able to use `ScreenRecorder`.
 
 > I have already inserted the necessary lines for the configuration of `ScreenRecorder`.
 
-You can [download this modified version](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/SketchExampleForHD.ino) and review it in detail:
+You can [download this modified version](https://raw.githubusercontent.com/m1cr0lab-gamebuino/gb-meta-screen-recorder/master/sources/SketchExampleForHD.ino) and review it in detail:
 
 <div class="filename">SketchExampleForHD.ino</div>
 ```cpp

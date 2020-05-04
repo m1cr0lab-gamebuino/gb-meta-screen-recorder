@@ -11,8 +11,8 @@ lang-ref: setup
 
 Pour enregistrer des captures d'écrans successifs d'une application qui s'exécute sur votre META, vous allez avoir besoin d'un composant spécifique qui va se charger d'effectuer cette tâche : le `ScreenRecorder`. Pour intégrer ce composant à votre projet, vous allez devoir télécharger deux fichiers qui déclarent et définissent respectivement la classe C++ `ScreenRecorder` :
 
-- [ScreenRecorder.h](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.h) qui est le fichier d'en-tête déclaratif de la classe,
-- [ScreenRecorder.cpp](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/ScreenRecorder.cpp) qui est le fichier de définition de la classe.
+- [ScreenRecorder.h](https://raw.githubusercontent.com/m1cr0lab-gamebuino/gb-meta-screen-recorder/master/sources/ScreenRecorder.h) qui est le fichier d'en-tête déclaratif de la classe,
+- [ScreenRecorder.cpp](https://raw.githubusercontent.com/m1cr0lab-gamebuino/gb-meta-screen-recorder/master/sources/ScreenRecorder.cpp) qui est le fichier de définition de la classe.
 
 > Pour les télécharger, faites un clic droit sur chacun des liens, et sélectionnez ***Enregistrer le lien sous...*** pour le sauvegarder dans le répertoire de votre projet.
 
@@ -69,13 +69,13 @@ C'est tout ce que vous avez à faire !... Simple, nan ?
 # Pour une application en haute résolution
 
 Dans le cas d'une application développée pour la haute résolution, les choses sont un peu différentes. En effet, vous ne pourrez pas utiliser les méthodes d'affichage traditionnelles offertes par `gb.display`... Je vous encourage à lire l'excellent article d'[Andy](https://gamebuino.com/@aoneill) sur le sujet : [High Resolution without gb.display](https://gamebuino.com/creations/high-resolution-without-gb-display), qui vous explique sommairement les raisons pour lesquelles ça n'est pas possible et vous livre une méthode de contournement qui consiste à utiliser directement `gb.tft`. J'ai rédigé un tutoriel très complet sur l'approfondissement de cette technique. Vous pouvez le lire si cela vous intéresse (les débutants auront peut-être quelques difficultés à tout assimiler) :
-[Éclairage Tamisé en Haute Résolution](https://iw4rr10r.github.io/gb-shading-effect/). Il vous permettra de comprendre en profondeur comment appliquer cette technique dans vos applications.
+[Éclairage Tamisé en Haute Résolution](https://m1cr0lab-gamebuino.github.io/gb-shading-effect/). Il vous permettra de comprendre en profondeur comment appliquer cette technique dans vos applications.
 
 Pour revenir à notre `ScreenRecorder`, et pour illustrer la manière dont on doit le configurer pour la haute résolution, nous allons emprunter le code proposé par Andy dans son article, que j'ai légèrement modifié pour définir un découpage de l'écran en tranches **horizontales**. En effet, **vous devrez** appliquer ce type de découpage pour pouvoir utiliser `ScreenRecorder`.
 
 > J'y ai déjà inséré les lignes nécessaire pour la configuration de `ScreenRecorder`.
 
-Vous pouvez [télécharger cette version modifiée](https://raw.githubusercontent.com/iw4rr10r/gb-meta-screen-recorder/master/sources/SketchExampleForHD.ino) et l'examiner en détail :
+Vous pouvez [télécharger cette version modifiée](https://raw.githubusercontent.com/m1cr0lab-gamebuino/gb-meta-screen-recorder/master/sources/SketchExampleForHD.ino) et l'examiner en détail :
 
 <div class="filename">SketchExampleForHD.ino</div>
 ```cpp
